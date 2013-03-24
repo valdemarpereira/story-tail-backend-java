@@ -5,6 +5,7 @@ import com.valdemar.storytail.model.Location;
 import com.valdemar.storytail.model.WindParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,7 +23,7 @@ public class WeatherProxy {
     @Qualifier("yahooWeatherStrategy")
     WeatherStrategy YahooWeatherStrategy;
 
-   //@Cacheable
+    @Cacheable("defaultCache")
     public WindParameters getWind(Location location) throws WeatherException {
 
         //just one strategy to get weather

@@ -4,3 +4,13 @@
 *.jar
 *.war
 *.ear
+
+#Intelli IDEA Specific
+.classpath
+.project
+.settings/
+.idea/workspace.xml
+.idea/tasks.xml
+*.iws
+log/
+target/

@@ -5,9 +5,11 @@ import com.valdemar.storytail.model.Location;
 import com.valdemar.storytail.model.Tale;
 import com.valdemar.storytail.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.geo.Point;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +23,11 @@ public class TaleService {
 
     @Autowired
     TaleDao taleDao;
+
+    private static final float NEAR = 0.3f;
+    private static final float NEAR_INC = 0.2f;
+    private static final float NEAR_INC_MAX = 1.0f;
+
 
 
     public void createTale( User user,String title, Location currentLocation, int maxDays, int maxInteractions) {
@@ -40,5 +47,25 @@ public class TaleService {
         taleDao.createTale(tale);
 
 
+    }
+
+
+    public List<Tale> findNearTales(Location location){
+
+        Point point = new Point(location.getLat(), location.getLon());
+
+        List<Tale> tales = null;
+        float computedNear = 0;
+
+        while(computedNear < NEAR_INC_MAX) {
+
+            tales = taleDao.findTales(point, NEAR + computedNear);
+            if(tales.size() > 0)
+                break;
+            else
+                computedNear += NEAR_INC;
+        }
+
+        return tales;
     }
 }

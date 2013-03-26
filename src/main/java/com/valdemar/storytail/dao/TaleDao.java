@@ -48,10 +48,8 @@ public class TaleDao {
     }
 
     public List<Tale> findTales(Point p, double distance) {
-        // when
-     //   List<Tale> locations = repo.findByCurrentLocationWithin(circle);
-        List<Tale> locations = repo.findByCurrentLocationNear(p, new Distance(distance, Metrics.KILOMETERS));
+        List<Tale> tales = repo.findByCurrentLocationNear(p, new Distance(distance, Metrics.KILOMETERS));
 
-        return locations;
+        return tales;
     }
 }

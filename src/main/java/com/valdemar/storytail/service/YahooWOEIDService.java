@@ -7,7 +7,6 @@ import com.valdemar.storytail.exceptions.YahooWOEIDServiceException;
 import com.valdemar.storytail.model.Location;
 import com.valdemar.storytail.model.Woeid;
 import com.valdemar.storytail.util.RestClient;
-import com.valdemar.storytail.weather.YahooConstants;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;

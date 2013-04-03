@@ -25,7 +25,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/stories/tales")
-public class StoriesController {
+public class TaleController {
 
 
     @Autowired
@@ -35,16 +35,16 @@ public class StoriesController {
     @Path("/near")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTalesNearPoint(@QueryParam("lat") Double lat,
-                             @QueryParam("lon") Double lon) {
+                                      @QueryParam("lon") Double lon) {
         if(lat == null || lon == null) {
-            return Response.serverError().entity(new ServerResponse<List<Tale>>("lat or lon parameters cannot be empty")).build();
+            return Response.serverError().entity(new ServerResponse<NearTales>("lat or lon parameters cannot be empty")).build();
         }
 
         try {
-            List<Tale> tales = taleService.findNearTales(new Location(lat, lon));
-            return Response.ok(new ServerResponse<List<Tale>>(tales)).build();
+            NearTales tales = taleService.findNearTales(new Location(lat, lon));
+            return Response.ok(new ServerResponse<NearTales>(tales)).build();
         } catch (Throwable e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<List<Tale>>(e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<NearTales>(e.getMessage())).build();
         }
     }
 
@@ -53,8 +53,19 @@ public class StoriesController {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTale(@QueryParam("taleId") String taleId) {
 
-        return null;
+        if ("".equals(taleId)){
+            return Response.serverError().entity(new ServerResponse<Tale>("lat or lon parameters cannot be empty")).build();
+        }
+
+        try {
+            Tale tale = taleService.findTale(taleId);
+            return Response.ok(new ServerResponse<Tale>(tale)).build();
+        } catch (Throwable e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<Tale>(e.getMessage())).build();
+        }
     }
+
+    @Put
 
 
 

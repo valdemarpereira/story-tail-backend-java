@@ -2,25 +2,20 @@ package com.valdemar.storytail.service;
 
 import com.google.common.base.Optional;
 import com.valdemar.storytail.dao.WoeidDao;
-import com.valdemar.storytail.exceptions.RestClientFatalException;
-import com.valdemar.storytail.exceptions.WeatherException;
 import com.valdemar.storytail.exceptions.YahooWOEIDServiceException;
 import com.valdemar.storytail.model.WindParameters;
 import com.valdemar.storytail.util.RestClient;
 import com.valdemar.storytail.weather.YahooConstants;
-import org.apache.commons.lang.CharEncoding;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.FlowView;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URL;
-import java.net.URLEncoder;
 
 /**
  * Created with IntelliJ IDEA.

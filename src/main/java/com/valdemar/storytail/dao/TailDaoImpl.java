@@ -1,5 +1,6 @@
 package com.valdemar.storytail.dao;
 
+import com.valdemar.storytail.model.Tail;
 import com.valdemar.storytail.model.Tale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -20,25 +21,25 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository
-public class TaleDaoImpl implements TaleDao {
+public class TailDaoImpl implements TailDao {
 
 
     @Autowired
     MongoTemplate mongoTemplate;
     @Autowired
-    TalesRepository repo;
+    TailRepository repo;
     /**
      * Adds a new person
      */
     @Override
-    public String createTale(Tale tale) {
+    public String insertTail(Tail tail) {
         mongoTemplate.indexOps(Tale.class).ensureIndex( new GeospatialIndex("currentLocation") );
 
-        return repo.save(tale).getId();
+        return repo.save(tail).getId();
     }
 
     @Override
-    public List<Tale> findTales(Point p, double distance) {
+    public List<Tail> findTails(Tale tale) {
         List<Tale> tales = repo.findByCurrentLocationNear(p, new Distance(distance, Metrics.KILOMETERS));
 
         return tales;

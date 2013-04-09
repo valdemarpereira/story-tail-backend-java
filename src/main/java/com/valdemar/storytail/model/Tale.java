@@ -1,6 +1,8 @@
 package com.valdemar.storytail.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,6 +12,8 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class Tale {
+
+    private String id;
 
     private boolean lockedForEdit;
     private Date lockForEditDate;
@@ -29,6 +33,7 @@ public class Tale {
     private Location currentLocation;
     private String currentCity;
     private String currentCountry;
+    private List<String> taildIds = new ArrayList<String>();
 
     /*
     public Tale(String title, String createdBy, int maxDays, int maxInteractions, Location currentLocation) {
@@ -162,5 +167,25 @@ public class Tale {
 
     public void setCurrentCountry(String currentCountry) {
         this.currentCountry = currentCountry;
+    }
+
+    public List<String> getTaildIds() {
+        return taildIds;
+    }
+
+    public void setTaildIds(List<String> taildIds) {
+        this.taildIds = taildIds;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void insertTailId(String tailId) {
+        taildIds.add(tailId);
     }
 }

@@ -1,9 +1,6 @@
 package com.valdemar.storytail.service;
 
-import com.valdemar.storytail.model.Location;
-import com.valdemar.storytail.model.NearTales;
-import com.valdemar.storytail.model.Tale;
-import com.valdemar.storytail.model.User;
+import com.valdemar.storytail.model.*;
 
 import java.util.List;
 
@@ -15,7 +12,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface TaleService {
-    void createTale(User user, String title, Location currentLocation, int maxDays, int maxInteractions);
+    void createTale(NewTale tale);
 
     NearTales findNearTales(Location location);
 

@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -65,7 +62,24 @@ public class TaleController {
         }
     }
 
-    @Put
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createTale(NewTale tale) {
+
+        if(tale == null){
+            return Response.serverError().entity(new ServerResponse<Tale>("tale cannot be empty")).build();
+        }
+
+
+        try {
+            taleService.in
+            return Response.ok(new ServerResponse<Tale>(tale)).build();
+        } catch (Throwable e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<Tale>(e.getMessage())).build();
+        }
+        return Response.status(201).entity(result).build();
+
+    }
 
 
 

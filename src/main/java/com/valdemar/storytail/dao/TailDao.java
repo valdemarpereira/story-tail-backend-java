@@ -1,5 +1,6 @@
 package com.valdemar.storytail.dao;
 
+import com.valdemar.storytail.model.Tail;
 import com.valdemar.storytail.model.Tale;
 import org.springframework.data.mongodb.core.geo.Point;
 
@@ -12,10 +13,9 @@ import java.util.List;
  * Time: 10:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface TaleDao {
-    String createTale(Tale tale);
+public interface TailDao {
+    String insertTail(Tail tail);
 
-    List<Tale> findTales(Point p, double distance);
+    List<Tail> findTails(Tale tale);
 
-    Tale getTale(String taleId);
 }

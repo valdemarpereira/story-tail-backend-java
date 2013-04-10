@@ -70,15 +70,12 @@ public class TaleController {
             return Response.serverError().entity(new ServerResponse<Tale>("tale cannot be empty")).build();
         }
 
-
         try {
-            taleService.in
-            return Response.ok(new ServerResponse<Tale>(tale)).build();
+            taleService.createNewTale(tale);
+            return Response.status(201).build();
         } catch (Throwable e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<Tale>(e.getMessage())).build();
         }
-        return Response.status(201).entity(result).build();
-
     }
 
 

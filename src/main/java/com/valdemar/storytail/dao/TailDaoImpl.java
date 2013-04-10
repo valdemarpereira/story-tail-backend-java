@@ -23,7 +23,6 @@ import java.util.List;
 @Repository
 public class TailDaoImpl implements TailDao {
 
-
     @Autowired
     MongoTemplate mongoTemplate;
     @Autowired
@@ -33,20 +32,13 @@ public class TailDaoImpl implements TailDao {
      */
     @Override
     public String insertTail(Tail tail) {
-        mongoTemplate.indexOps(Tale.class).ensureIndex( new GeospatialIndex("currentLocation") );
+        mongoTemplate.indexOps(Tail.class).ensureIndex( new GeospatialIndex("location") );
 
         return repo.save(tail).getId();
     }
 
     @Override
-    public List<Tail> findTails(Tale tale) {
-        List<Tale> tales = repo.findByCurrentLocationNear(p, new Distance(distance, Metrics.KILOMETERS));
-
-        return tales;
-    }
-
-    @Override
-    public Tale getTale(String taleId) {
+    public Tail findTail(String taleId) {
         return repo.findOne(taleId);
     }
 }

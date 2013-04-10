@@ -1,6 +1,8 @@
 package com.valdemar.storytail.service;
 
+import com.valdemar.storytail.dao.TailDao;
 import com.valdemar.storytail.dao.TaleDao;
+import com.valdemar.storytail.exceptions.NewTaleCreationException;
 import com.valdemar.storytail.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.geo.Point;
@@ -31,10 +33,20 @@ public class TaleServiceImpl implements TaleService {
 
 
     @Override
-    public void createTale(NewTale tale) {
+    public void createNewTale(NewTale tale) throws NewTaleCreationException {
 
+        Tail tail = new Tail();
+        tail.setTail(tale.getTail());
+        tail.setCity(tale.getCurrentCity());
+        tail.setCountry(tale.getCurrentCountry());
+        tail.setCreateDate(new Date());
+        tail.setLocation(tale.getCurrentLocation());
+        tail.setCreatedBy(tale.getCreatedBy());
 
-        String tailId = tailDao.insertTail();
+        String tailId = tailDao.insertTail(tail);
+
+        if("".equals(tailId))
+            throw new NewTaleCreationException("Could not create a new tale... ");
 
         tale.setCreateDate(new Date());
         tale.setLastUpdateDate(new Date());

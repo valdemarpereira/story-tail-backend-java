@@ -1,5 +1,6 @@
 package com.valdemar.storytail.service;
 
+import com.valdemar.storytail.exceptions.NewTaleCreationException;
 import com.valdemar.storytail.model.*;
 
 import java.util.List;
@@ -12,10 +13,9 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public interface TaleService {
-    void createTale(NewTale tale);
-
     NearTales findNearTales(Location location);
 
     Tale findTale(String taleId);
 
+    void createNewTale(NewTale tale) throws NewTaleCreationException;
 }

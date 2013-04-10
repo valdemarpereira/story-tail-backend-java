@@ -16,6 +16,6 @@ import java.util.List;
 public interface TailDao {
     String insertTail(Tail tail);
 
-    List<Tail> findTails(Tale tale);
+    Tail findTail(String taleId);
 
 }

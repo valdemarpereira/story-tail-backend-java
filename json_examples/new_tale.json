@@ -1,0 +1,11 @@
+{
+    "tail":"Example de uma tail",
+    "title":"Tale Title",
+    "maxDays": 200,
+    "maxInteractions": 20,
+    "travelDistance": 2000,
+    "currentLocation": {
+        "lat": 51.521134,
+        "lon":-0.37096
+    }
+}

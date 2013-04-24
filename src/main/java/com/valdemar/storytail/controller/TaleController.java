@@ -21,7 +21,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/stories/tales")
+@Path("/stories/tales")
 public class TaleController {
 
 
@@ -63,7 +63,9 @@ public class TaleController {
     }
 
     @POST
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON})
     public Response createTale(NewTale tale) {
 
         if(tale == null){
@@ -71,8 +73,8 @@ public class TaleController {
         }
 
         try {
-            taleService.createNewTale(tale);
-            return Response.status(201).build();
+            Tale newTale = taleService.createNewTale(tale);
+            return Response.ok(new ServerResponse<Tale>(newTale)).build();
         } catch (Throwable e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<Tale>(e.getMessage())).build();
         }

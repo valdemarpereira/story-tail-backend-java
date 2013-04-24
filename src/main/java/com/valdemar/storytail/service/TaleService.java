@@ -17,5 +17,5 @@ public interface TaleService {
 
     Tale findTale(String taleId);
 
-    void createNewTale(NewTale tale) throws NewTaleCreationException;
+    Tale createNewTale(NewTale tale) throws NewTaleCreationException;
 }

@@ -33,7 +33,7 @@ public class TaleServiceImpl implements TaleService {
 
 
     @Override
-    public void createNewTale(NewTale tale) throws NewTaleCreationException {
+    public Tale createNewTale(NewTale tale) throws NewTaleCreationException {
 
         Tail tail = new Tail();
         tail.setTail(tale.getTail());
@@ -55,6 +55,8 @@ public class TaleServiceImpl implements TaleService {
         tale.insertTailId(tailId);
 
         taleDao.createTale(tale);
+
+        return tale;
     }
 
     @Override

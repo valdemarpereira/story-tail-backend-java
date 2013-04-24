@@ -13,8 +13,12 @@ import java.text.DecimalFormat;
  */
 public final class Location {
 
-    private final double  lat;
-    private final  double  lon;
+    private  double  lat;
+    private  double  lon;
+
+    public Location() {
+
+    }
 
     public Location(double lat, double lon) {
         this.lat = Utils.roundLocationWith2DecimalPlaces(lat);
@@ -26,6 +30,14 @@ public final class Location {
     }
     public double getLon() {
         return lon;
+    }
+
+    public void setLat(double lat) {
+        this.lat = Utils.roundLocationWith2DecimalPlaces(lat);
+    }
+
+    public void setLon(double lon) {
+        this.lon = Utils.roundLocationWith2DecimalPlaces(lon);
     }
 
     @Override

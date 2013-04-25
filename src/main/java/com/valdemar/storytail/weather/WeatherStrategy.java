@@ -16,5 +16,5 @@ import java.io.UnsupportedEncodingException;
  */
 public interface WeatherStrategy {
 
-    public WindParameters getWindParameter(Location loc) throws WeatherException;
+    public WindParameters getWindParameter(Location location) throws WeatherException;
 }

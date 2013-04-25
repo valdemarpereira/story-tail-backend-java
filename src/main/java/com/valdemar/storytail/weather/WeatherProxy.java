@@ -21,13 +21,18 @@ public class WeatherProxy {
 
     @Autowired
     @Qualifier("yahooWeatherStrategy")
-    WeatherStrategy YahooWeatherStrategy;
+    WeatherStrategy yahooWeatherStrategy;
+
+    @Qualifier("forecastIOWeatherStrategy")
+    WeatherStrategy forecastIOWeatherStrategy;
 
     @Cacheable("defaultCache")
     public WindParameters getWind(Location location) throws WeatherException {
 
         //just one strategy to get weather
-        return YahooWeatherStrategy.getWindParameter(location);
+       // return yahooWeatherStrategy.getWindParameter(location);
+        return forecastIOWeatherStrategy.getWindParameter(location);
+
     }
 
 

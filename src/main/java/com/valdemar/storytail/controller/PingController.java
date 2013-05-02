@@ -22,8 +22,8 @@ import javax.ws.rs.core.MediaType;
  * Time: 18:11
  * To change this template use File | Settings | File Templates.
  */
-@Component
-@Path("/")
+
+
 public class PingController {
 
 

@@ -1,5 +1,6 @@
 package com.valdemar.storytail.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * Time: 22:21
  * To change this template use File | Settings | File Templates.
  */
+@XmlRootElement
 public class Tale {
 
     private String id;

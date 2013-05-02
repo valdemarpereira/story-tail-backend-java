@@ -2,6 +2,7 @@ package com.valdemar.storytail.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
@@ -11,6 +12,7 @@ import java.util.Date;
  * Time: 22:21
  * To change this template use File | Settings | File Templates.
  */
+@XmlRootElement
 public class Woeid {
 
     private Date recordDate;

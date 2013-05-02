@@ -1,5 +1,6 @@
 package com.valdemar.storytail.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * Time: 21:48
  * To change this template use File | Settings | File Templates.
  */
+@XmlRootElement
 public class WindParameters implements Serializable{
     private final float windSpeed;
     private final int windDirection;

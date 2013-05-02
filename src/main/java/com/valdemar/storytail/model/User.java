@@ -1,6 +1,7 @@
 package com.valdemar.storytail.model;
 
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Date;
  * Time: 23:32
  * To change this template use File | Settings | File Templates.
  */
+@XmlRootElement
 public class User {
     String username;
     String password;

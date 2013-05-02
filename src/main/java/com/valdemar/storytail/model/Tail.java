@@ -1,5 +1,6 @@
 package com.valdemar.storytail.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
@@ -9,6 +10,7 @@ import java.util.Date;
  * Time: 14:29
  * To change this template use File | Settings | File Templates.
  */
+@XmlRootElement
 public class Tail {
 
     private String id;

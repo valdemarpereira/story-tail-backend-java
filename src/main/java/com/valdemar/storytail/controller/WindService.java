@@ -7,6 +7,7 @@ import com.valdemar.storytail.model.Woeid;
 import com.valdemar.storytail.weather.WeatherProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -23,7 +24,7 @@ import javax.ws.rs.core.Response;
  * Time: 18:11
  * To change this template use File | Settings | File Templates.
  */
-@Component
+@Controller
 @Path("/weather")
 public class WindService {
 

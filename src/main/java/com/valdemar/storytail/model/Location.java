@@ -2,6 +2,7 @@ package com.valdemar.storytail.model;
 
 import com.valdemar.storytail.util.Utils;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.text.DecimalFormat;
 
 /**
@@ -11,6 +12,8 @@ import java.text.DecimalFormat;
  * Time: 22:42
  * To change this template use File | Settings | File Templates.
  */
+@XmlRootElement
+
 public final class Location {
 
     private  double  lat;

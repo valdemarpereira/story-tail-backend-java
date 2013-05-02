@@ -23,6 +23,7 @@ public class WeatherProxy {
     @Qualifier("yahooWeatherStrategy")
     WeatherStrategy yahooWeatherStrategy;
 
+    @Autowired
     @Qualifier("forecastIOWeatherStrategy")
     WeatherStrategy forecastIOWeatherStrategy;
 

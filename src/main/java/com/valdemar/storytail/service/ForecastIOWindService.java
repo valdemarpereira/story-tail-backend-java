@@ -37,7 +37,7 @@ public class ForecastIOWindService {
 
     public Optional<WindParameters> getWind(Location location) throws YahooWOEIDServiceException, UnsupportedEncodingException {
 
-        String url = "https://api.forecast.io/forecast/{0}/{1},{2]";
+        String url = "https://api.forecast.io/forecast/{0}/{1},{2}";
 
         String windJson = queryForWind(MessageFormat.format(url, KEY, location.getLat(), location.getLon()));
 
@@ -75,7 +75,7 @@ public class ForecastIOWindService {
 
                 String fieldname = jParser.getCurrentName();
 
-                if ("wind".equals(fieldname)) {
+                if ("currently".equals(fieldname)) {
 
                     String windSpeed = "0.0";
                     String windDirection = "0";
@@ -84,10 +84,10 @@ public class ForecastIOWindService {
 
                         fieldname = jParser.getCurrentName();
 
-                        if ("direction".equals(fieldname)) {
+                        if ("windBearing".equals(fieldname)) {
                            // jParser.nextToken();
                             windDirection = jParser.getText();
-                        } else if ("speed".equals(fieldname)) {
+                        } else if ("windSpeed".equals(fieldname)) {
                            // jParser.nextToken();
                             windSpeed = jParser.getText();
                         } else

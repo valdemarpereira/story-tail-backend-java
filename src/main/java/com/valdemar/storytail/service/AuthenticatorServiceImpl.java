@@ -1,7 +1,9 @@
 package com.valdemar.storytail.service;
 
 import com.valdemar.storytail.exceptions.InvalidUserTokenException;
+import com.valdemar.storytail.exceptions.UserAuthenticationException;
 import com.valdemar.storytail.model.AuthApiKey;
+import com.valdemar.storytail.model.FacebookUserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +21,13 @@ public class AuthenticatorServiceImpl implements AuthenticatorService {
     FacebookAuthenticatorService fbService;
 
     @Override
-    public AuthApiKey authenticate(String token, AuthLoginType authType) throws InvalidUserTokenException {
+    public AuthApiKey authenticate(String token, AuthLoginType authType) throws UserAuthenticationException {
 
-        String username = false;
+        FacebookUserInfo facebookUserInfo;
 
         switch (authType) {
             case FACEBOOK:
-                username = fbService.authenticate(token);
+                facebookUserInfo = fbService.authenticate(token);
 
                 break;
             default:
@@ -33,17 +35,23 @@ public class AuthenticatorServiceImpl implements AuthenticatorService {
         }
 
 
-        if(username == null)
-            throw new InvalidUserTokenException();
+        if(facebookUserInfo == null)
+            throw new InvalidUserTokenException("Invalid Token");
 
 
-        return generateApiKey(username);
+        checkAndCreateNewUser(facebookUserInfo);
+
+        return generateApiKey(facebookUserInfo);
     }
 
-    private AuthApiKey generateApiKey(String username) {
+    private void checkAndCreateNewUser(FacebookUserInfo facebookUserInfo) {
+        //TODO: Implement
 
+    }
 
+    private AuthApiKey generateApiKey(FacebookUserInfo fb) {
 
-
+        //TODO: Implement
+          return null;
     }
 }

@@ -31,24 +31,6 @@ public class RestClient {
      and WebResource instances may be shared between multiple threads*/
 
     private static Client client = Client.create();
-    private static Client client_ssl = createClientSSL();
-
-
-    public static Client  createClientSSL() {
-
-        try {
-
-        ClientConfig config = new DefaultClientConfig();
-        SSLContext ctx = SSLContext.getInstance("SSL");
-        ctx.init(null, myTrustManager, null);
-        config.getProperties().put(HTTPSProperties.PROPERTY_HTTPS_PROPERTIES, new HTTPSProperties(hostnameVerifier, ctx));
-        Client client = Client.create(config);
-
-            return client;
-        }
-      catch (Exception ex) {}
-
-    }
 
     public static <T> T getJson(URI url, Class<T> type) throws RestClientFatalException {
 

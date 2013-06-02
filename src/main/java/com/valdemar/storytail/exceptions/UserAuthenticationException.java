@@ -8,4 +8,13 @@ package com.valdemar.storytail.exceptions;
  * To change this template use File | Settings | File Templates.
  */
 public class UserAuthenticationException extends Exception{
+
+    public UserAuthenticationException(String message) {
+        super(message);
+    }
+
+    public UserAuthenticationException(Exception e) {
+        super(e);
+    }
+
 }

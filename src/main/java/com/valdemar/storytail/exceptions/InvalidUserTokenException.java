@@ -8,4 +8,8 @@ package com.valdemar.storytail.exceptions;
  * To change this template use File | Settings | File Templates.
  */
 public class InvalidUserTokenException extends UserAuthenticationException {
+
+    public InvalidUserTokenException(String message) {
+        super(message);
+    }
 }

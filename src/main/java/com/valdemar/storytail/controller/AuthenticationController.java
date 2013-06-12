@@ -2,6 +2,7 @@ package com.valdemar.storytail.controller;
 
 import com.valdemar.storytail.model.AuthApiKey;
 import com.valdemar.storytail.model.ServerResponse;
+import com.valdemar.storytail.model.UserInfo;
 import com.valdemar.storytail.service.AuthLoginType;
 import com.valdemar.storytail.service.AuthenticatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,15 +33,15 @@ public class AuthenticationController {
     @Path("/fb_login")
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTalesNearPoint(@QueryParam("token") String token) {
-        if("".equals(token)) {
-            return Response.serverError().entity(new ServerResponse<AuthApiKey>("token cannot be empty")).build();
+        if(token == null || "".equals(token)) {
+            return Response.serverError().entity(new ServerResponse<UserInfo>("token cannot be empty")).build();
         }
 
         try {
-            AuthApiKey apiKey = authService.authenticate(token, AuthLoginType.FACEBOOK);
-            return Response.ok(new ServerResponse<AuthApiKey>(apiKey)).build();
+            UserInfo userInfo = authService.authenticate(token, AuthLoginType.FACEBOOK);
+            return Response.ok(new ServerResponse<UserInfo>(userInfo)).build();
         } catch (Throwable e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<AuthApiKey>(e.getMessage())).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<UserInfo>(e.getMessage())).build();
         }
     }
 }

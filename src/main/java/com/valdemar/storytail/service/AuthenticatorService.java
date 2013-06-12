@@ -3,6 +3,7 @@ package com.valdemar.storytail.service;
 import com.valdemar.storytail.exceptions.InvalidUserTokenException;
 import com.valdemar.storytail.exceptions.UserAuthenticationException;
 import com.valdemar.storytail.model.AuthApiKey;
+import com.valdemar.storytail.model.UserInfo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,5 +13,5 @@ import com.valdemar.storytail.model.AuthApiKey;
  * To change this template use File | Settings | File Templates.
  */
 public interface AuthenticatorService {
-    AuthApiKey authenticate(String token, AuthLoginType facebook) throws UserAuthenticationException;
+    UserInfo authenticate(String token, AuthLoginType facebook) throws UserAuthenticationException;
 }

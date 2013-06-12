@@ -3,7 +3,9 @@ package com.valdemar.storytail.service;
 import com.valdemar.storytail.exceptions.UserAuthenticationException;
 import com.valdemar.storytail.exceptions.YahooWOEIDServiceException;
 import com.valdemar.storytail.model.FacebookUserInfo;
+import com.valdemar.storytail.model.UserInfo;
 import com.valdemar.storytail.util.RestClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.net.URI;
@@ -21,8 +23,13 @@ public class FacebookAuthenticatorService {
 
     private static final String GRAPH_URL = "https://graph.facebook.com/me?access_token=";
 
+    @Autowired
+    UserLoginService userLoginService;
+    @Autowired
+    ApiTokenService apiTokenService;
 
-    public FacebookUserInfo authenticate(String token) throws UserAuthenticationException {
+
+    public UserInfo authenticate(String token) throws UserAuthenticationException {
 
         //todo: validar caso o token seja invalido...
 
@@ -30,7 +37,11 @@ public class FacebookAuthenticatorService {
 
         FacebookUserInfo fb = get(url);
 
-       return fb;
+        UserInfo userInfo = userLoginService.createOrUpdateUser(fb); // incr num of login, last lohin, etc etc
+
+        userInfo.setApiToken(apiTokenService.generateToken(userInfo.getId()));
+
+       return userInfo;
 
 
     }

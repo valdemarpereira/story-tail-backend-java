@@ -1,18 +1,12 @@
 package com.valdemar.storytail.controller;
 
-import com.valdemar.storytail.exceptions.RestClientFatalException;
-import com.valdemar.storytail.exceptions.YahooWOEIDServiceException;
-import com.valdemar.storytail.model.Location;
-import com.valdemar.storytail.model.Woeid;
-import com.valdemar.storytail.service.YahooWOEIDService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 
 /**
@@ -23,11 +17,20 @@ import javax.ws.rs.core.MediaType;
  * To change this template use File | Settings | File Templates.
  */
 
-
+@Controller
+@Path("/ping")
 public class PingController {
 
+    @GET
+    @Path("/")
+    public Response pong() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
 
 
+        return Response.ok("pong " + name).build();
 
+    }
 
 }

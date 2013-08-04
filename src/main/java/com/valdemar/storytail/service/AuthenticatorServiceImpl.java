@@ -32,7 +32,7 @@ public class AuthenticatorServiceImpl implements AuthenticatorService {
 
                 break;
             default:
-                throw new AssertionError("Not implemented");
+                throw new AssertionError("Authentication Type Not implemented");
         }
 
 

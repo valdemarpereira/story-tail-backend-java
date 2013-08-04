@@ -281,12 +281,35 @@
                 <version>6.1.10</version>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>tomcat-maven-plugin</artifactId>
+
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.1.2</version>
                 <configuration>
-                    <url>http://192.168.1.74/manager</url>
-                    <server>TomcatServer</server>
-                    <path>/story-tail</path>
+                    <container>
+                        <containerId>tomcat7x</containerId>
+                        <type>remote</type>
+                    </container>
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.remote.uri>
+                                http://localhost:8080/manager/text
+                            </cargo.remote.uri>
+                            <cargo.remote.username>admin</cargo.remote.username>
+                            <cargo.remote.password>password</cargo.remote.password>
+                        </properties>
+                    </configuration>
+                    <deployer>
+                        <type>remote</type>
+                        <deployables>
+                            <deployable>
+                                <groupId>story-tail-backend-java</groupId>
+                                <artifactId>story-tail-backend-java</artifactId>
+                                <type>war</type>
+                            </deployable>
+                        </deployables>
+                    </deployer>
                 </configuration>
             </plugin>
         </plugins>

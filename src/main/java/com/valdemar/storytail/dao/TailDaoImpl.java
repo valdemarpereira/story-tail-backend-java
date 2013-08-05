@@ -32,8 +32,6 @@ public class TailDaoImpl implements TailDao {
      */
     @Override
     public String insertTail(Tail tail) {
-        mongoTemplate.indexOps(Tail.class).ensureIndex( new GeospatialIndex("location") );
-
         return repo.save(tail).getId();
     }
 

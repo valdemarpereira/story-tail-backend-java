@@ -1,32 +1,15 @@
 package com.valdemar.storytail.model;
 
+import lombok.Data;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: valdemar
- * Date: 4/3/13
- * Time: 11:08 PM
- * To change this template use File | Settings | File Templates.
- */
-@XmlRootElement
+@Data
+@Document
 public final class NearTales {
 
-    private List<Tale> tales;
-    private int distanceInMeters;
-
-
-    public NearTales(List<Tale> tales, int distanceInMeters) {
-        this.tales = tales;
-        this.distanceInMeters = distanceInMeters;
-    }
-
-    public List<Tale> getTales() {
-        return tales;
-    }
-
-    public long getDistanceInMeters() {
-        return distanceInMeters;
-    }
+    private final List<Tale> tales;
+    private final int distanceInMeters;
 }

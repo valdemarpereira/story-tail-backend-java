@@ -32,26 +32,30 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
         @SuppressWarnings("unchecked")
+
         Map<String, String[]> parms = request.getParameterMap();
 
+        if(parms.containsKey("token")) {
+            String token = parms.get("token")[0]; // grab the first "token" parameter
+
+            if("12345".equals(token)) {
+
+                //just a simple example
+                //TODO implement token validation againt DB
 
 
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken("mkyong", "123456");
 
-        //just a simple example
-        //TODO implement token validation againt DB
+                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
+                // set the authentication into the SecurityContext
+                SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
 
+                // SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
 
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken("mkyong", "123456");
+            }
 
-        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-        // set the authentication into the SecurityContext
-        SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
-
-       // SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
-
-
-
+        }
 
        /*
 

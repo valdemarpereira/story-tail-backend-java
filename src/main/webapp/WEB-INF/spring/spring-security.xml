@@ -12,7 +12,9 @@
               entry-point-ref="CustomAuthenticationEntryPoint">
 
         <custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"/>
-        <intercept-url pattern="/authenticate" access="permitAll"/>
+        <intercept-url pattern="/ping" access="permitAll"/>
+        <intercept-url pattern="/auth" access="permitAll"/>
+
         <intercept-url pattern="/**" access="isAuthenticated()"/>
     </http>
 

@@ -1,5 +1,7 @@
 package com.valdemar.storytail.model;
 
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,6 +34,7 @@ public class Tale {
     private Long travelDistance;
     private int interactions;
     private String language;
+    @GeoSpatialIndexed
     private Location currentLocation;
     private String currentCity;
     private String currentCountry;

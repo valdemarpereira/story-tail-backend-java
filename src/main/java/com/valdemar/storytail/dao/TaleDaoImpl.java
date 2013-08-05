@@ -32,8 +32,6 @@ public class TaleDaoImpl implements TaleDao {
      */
     @Override
     public String createTale(Tale tale) {
-        mongoTemplate.indexOps(Tale.class).ensureIndex( new GeospatialIndex("currentLocation") );
-
         return repo.save(tale).getId();
     }
 

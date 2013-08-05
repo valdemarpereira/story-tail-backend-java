@@ -1,8 +1,20 @@
 package com.valdemar.storytail.auth;
 
-public interface TokenUtils {
-//    String getToken(UserDetails userDetails);
-//    String getToken(UserDetails userDetails, Long expiration);
-//    boolean validate(String token);
-//    UserDetails getUserFromToken(String token);
+import java.util.UUID;
+
+public class TokenUtils {
+
+    public static String generateToken() {
+
+        //TODO; use a nonce
+        return  UUID.randomUUID().toString();
+
+
+    }
+
+    public static boolean validateToken(String token) {
+
+        //TODO: Validate Token
+        return true;
+    }
 }

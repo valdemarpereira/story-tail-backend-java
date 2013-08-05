@@ -325,7 +325,7 @@
                         <type>runtime</type>
                         <properties>
                             <cargo.remote.uri>
-                                http://localhost:8080/manager/text
+                                http://sshlondon.no-ip.org/manager/text
                             </cargo.remote.uri>
                             <cargo.remote.username>admin</cargo.remote.username>
                             <cargo.remote.password>password</cargo.remote.password>

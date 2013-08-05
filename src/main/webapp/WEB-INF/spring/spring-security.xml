@@ -28,14 +28,9 @@
     </beans:bean>
 
 
-    <!-- Implementar o meu Authentication Manager -->
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider>
-            <user-service>
-                <user name="mkyong" password="123456" authorities="ROLE_USER"/>
-            </user-service>
-        </authentication-provider>
+        <authentication-provider user-service-ref='myAuthenticationProvider' />
     </authentication-manager>
 
 

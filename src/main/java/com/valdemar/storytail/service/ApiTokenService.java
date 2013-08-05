@@ -9,11 +9,9 @@ import org.springframework.stereotype.Component;
  * Time: 20:41
  * To change this template use File | Settings | File Templates.
  */
-@Component
-public class ApiTokenService {
-    public String generateToken(String id) {
+public interface ApiTokenService {
 
+    public String generateToken(String userId);
 
-        return "TENHO_QUE_GERAR_UM_ID_:)";
-    }
+    String getUserIdFromToken(String token);
 }

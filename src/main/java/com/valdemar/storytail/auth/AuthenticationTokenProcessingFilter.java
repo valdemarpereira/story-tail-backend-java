@@ -1,5 +1,6 @@
 package com.valdemar.storytail.auth;
 
+import com.valdemar.storytail.service.ApiTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,10 +18,8 @@ import java.util.Map;
 
 public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
 
-//    @Autowired
-//    UserService userService;
-
-//    @Autowired TokenUtils tokenUtils;
+    @Autowired
+    ApiTokenService apiTokenService;
 
     AuthenticationManager authManager;
 
@@ -31,59 +30,21 @@ public class AuthenticationTokenProcessingFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws IOException, ServletException {
-        @SuppressWarnings("unchecked")
-
-        Map<String, String[]> parms = request.getParameterMap();
-
-        if(parms.containsKey("token")) {
-            String token = parms.get("token")[0]; // grab the first "token" parameter
-
-            if("12345".equals(token)) {
-
-                //just a simple example
-                //TODO implement token validation againt DB
 
 
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken("mkyong", "123456");
+        String token = ((HttpServletRequest) request).getHeader("auth_token");
 
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-                // set the authentication into the SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
+        if (token != null && TokenUtils.validateToken(token)) {
+            String userId = apiTokenService.getUserIdFromToken(token);
 
-                // SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
+            UsernamePasswordAuthenticationToken authentication =
+                    new UsernamePasswordAuthenticationToken(userId, token);
 
-            }
-
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
+            // set the authentication into the SecurityContext
+            SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
         }
 
-       /*
-
-        if(parms.containsKey("token")) {
-            String token = parms.get("token")[0]; // grab the first "token" parameter
-
-
-
-            // validate the token
-            if (tokenUtils.validate(token)) {
-                // determine the user based on the (already validated) token
-                UserDetails userDetails = tokenUtils.getUserFromToken(token);
-                // build an Authentication object with the user's info
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword());
-                authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails((HttpServletRequest) request));
-                // set the authentication into the SecurityContext
-                SecurityContextHolder.getContext().setAuthentication(authManager.authenticate(authentication));
-            }
-
-           /
-
-            //passar o token do facebook??
-            //terei que implementar o meu custom autenticador :)
-
-        }
-
-        */
         // continue thru the filter chain
         chain.doFilter(request, response);
     }

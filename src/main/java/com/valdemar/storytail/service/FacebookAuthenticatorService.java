@@ -1,7 +1,6 @@
 package com.valdemar.storytail.service;
 
 import com.valdemar.storytail.exceptions.UserAuthenticationException;
-import com.valdemar.storytail.exceptions.YahooWOEIDServiceException;
 import com.valdemar.storytail.model.FacebookUserInfo;
 import com.valdemar.storytail.model.UserInfo;
 import com.valdemar.storytail.util.RestClient;
@@ -25,19 +24,20 @@ public class FacebookAuthenticatorService {
 
     @Autowired
     UserLoginService userLoginService;
+
     @Autowired
     ApiTokenService apiTokenService;
 
 
-    public UserInfo authenticate(String token) throws UserAuthenticationException {
+    public UserInfo authenticate(String fbToken) throws UserAuthenticationException {
 
-        //todo: validar caso o token seja invalido...
+        //todo: validar caso o fbToken seja invalido...
 
-        String url =  GRAPH_URL + token;
+        String url =  GRAPH_URL + fbToken;
 
         FacebookUserInfo fb = get(url);
 
-        UserInfo userInfo = userLoginService.createOrUpdateUser(fb); // incr num of login, last lohin, etc etc
+        UserInfo userInfo = userLoginService.createOrUpdateUser(fb); // incr num of login, last login, etc etc
 
         userInfo.setApiToken(apiTokenService.generateToken(userInfo.getId()));
 

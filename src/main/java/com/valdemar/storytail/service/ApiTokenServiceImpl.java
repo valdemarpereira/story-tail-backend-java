@@ -32,7 +32,7 @@ public class ApiTokenServiceImpl implements ApiTokenService {
     public String getUserIdFromToken(String token) {
 
         //TODO check for null
-        Token tokenDb = repo.findOne(token);
+        Token tokenDb = repo.findByAuthToken(token);
 
         return tokenDb == null? null : tokenDb.getUserId();
 

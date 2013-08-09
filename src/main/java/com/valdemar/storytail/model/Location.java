@@ -1,41 +1,14 @@
 package com.valdemar.storytail.model;
 
-import com.valdemar.storytail.util.Utils;
 import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import java.text.DecimalFormat;
-
 @Document
+@Data
 public final class Location {
 
-    private  double  lat;
-    private  double  lon;
-
-    public Location() {
-
-    }
-
-    public Location(double lat, double lon) {
-        this.lat = Utils.roundLocationWith2DecimalPlaces(lat);
-        this.lon = Utils.roundLocationWith2DecimalPlaces(lon);
-    }
-
-    public double getLat() {
-        return lat;
-    }
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLat(double lat) {
-        this.lat = Utils.roundLocationWith2DecimalPlaces(lat);
-    }
-
-    public void setLon(double lon) {
-        this.lon = Utils.roundLocationWith2DecimalPlaces(lon);
-    }
+    private final double lat;
+    private final double lon;
 
     @Override
     public boolean equals(Object o) {

@@ -4,6 +4,7 @@ import com.valdemar.storytail.model.Location;
 import com.valdemar.storytail.model.ServerResponse;
 import com.valdemar.storytail.model.WindParameters;
 import com.valdemar.storytail.model.Woeid;
+import com.valdemar.storytail.util.Utils;
 import com.valdemar.storytail.weather.WeatherProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,7 +42,7 @@ public class WindService {
             return Response.serverError().entity(new ServerResponse<Woeid>("lat or lon parameters cannot be empty")).build();
         }
         try {
-            WindParameters wind = weatherProxy.getWind(new Location(lat, lon));
+            WindParameters wind = weatherProxy.getWind(new Location(Utils.roundLocationWith2DecimalPlaces(lat), Utils.roundLocationWith2DecimalPlaces(lon)));
             return Response.ok(new ServerResponse<WindParameters>(wind)).build();
         } catch (Throwable e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<Woeid>(e.getMessage())).build();

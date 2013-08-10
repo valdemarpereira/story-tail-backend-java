@@ -3,6 +3,7 @@ package com.valdemar.storytail.service;
 import com.google.common.base.Optional;
 import com.valdemar.storytail.dao.WoeidDao;
 import com.valdemar.storytail.exceptions.RestClientFatalException;
+import com.valdemar.storytail.exceptions.WeatherException;
 import com.valdemar.storytail.exceptions.YahooWOEIDServiceException;
 import com.valdemar.storytail.model.Location;
 import com.valdemar.storytail.model.Woeid;
@@ -11,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.JsonToken;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +21,6 @@ import java.net.URI;
 import java.text.MessageFormat;
 import java.util.Date;
 
-/**
- * Created with IntelliJ IDEA.
- * User: valdemar
- * Date: 22-03-2013
- * Time: 14:38
- * To change this template use File | Settings | File Templates.
- */
 
 @Component
 public class YahooWOEIDService {
@@ -35,6 +30,8 @@ public class YahooWOEIDService {
     @Autowired
     WoeidDao woeidDao;
 
+    private static ObjectMapper objectMapper = new ObjectMapper();
+
     public Woeid getWOEID(Location loc) throws YahooWOEIDServiceException {
 
         Optional<Woeid> woeidFromCache = woeidDao.findWoeid(loc);
@@ -43,10 +40,16 @@ public class YahooWOEIDService {
             return woeidFromCache.get();
 
         String woeidJson = queryYahooForWoeid(loc);
+        Woeid woeid;
 
-        Woeid woeid = convertYahooResponseUsingJacksonStream(woeidJson);
+        try {
+            woeid = objectMapper.readValue(woeidJson, Woeid.class);
+        } catch (IOException e) {
+            throw new YahooWOEIDServiceException(e);
+        }
 
-        if(!StringUtils.isNotEmpty(woeid.getWoeid()))
+
+        if (!StringUtils.isNotEmpty(woeid.getWoeid()))
             throw new YahooWOEIDServiceException("Error Getting WOEID from location");
 
         woeid.setLocation(loc);
@@ -68,78 +71,4 @@ public class YahooWOEIDService {
         }
     }
 
-
-    private Woeid convertYahooResponseUsingJacksonStream(String woeidJson) throws YahooWOEIDServiceException {
-
-        Woeid woeid = new Woeid();
-        JsonFactory jfactory = new JsonFactory();
-        JsonParser jParser = null;
-
-        try {
-
-            jParser = jfactory.createJsonParser(woeidJson);
-
-            // loop until token equal to "}"
-            while (jParser.nextToken() != JsonToken.END_OBJECT) {
-
-                String fieldname = jParser.getCurrentName();
-
-                if ("ResultSet".equals(fieldname)) {
-
-                    // messages is array, loop until token equal to "]"
-                    while (jParser.nextToken() != JsonToken.END_OBJECT) {
-
-                        fieldname = jParser.getCurrentName();
-
-                        if ("Error".equals(fieldname)) {
-                            jParser.nextToken();
-                            if (!jParser.getText().equals("0"))
-                                throw new RestClientFatalException("Error calling Yahoo webservice");
-                        }
-                        if ("Results".equals(fieldname)) {
-
-                            JsonToken token = jParser.nextToken(); // current token is "[", move next
-                            token = jParser.nextToken(); // current token is "[", move next
-
-                            while (jParser.nextToken() != JsonToken.END_OBJECT) {
-
-                                fieldname = jParser.getCurrentName();
-
-                                if ("woeid".equals(fieldname)) {
-                                    jParser.nextToken();
-                                    woeid.setWoeid(jParser.getText());
-                                } else if ("country".equals(fieldname)) {
-                                    jParser.nextToken();
-                                    woeid.setCountry(jParser.getText());
-                                } else if ("city".equals(fieldname)) {
-                                    jParser.nextToken();
-                                    woeid.setCity(jParser.getText());
-                                } else if ("state".equals(fieldname)) {
-                                    jParser.nextToken();
-                                    woeid.setState(jParser.getText());
-                                } else if ("county".equals(fieldname)) {
-                                    jParser.nextToken();
-                                    woeid.setCounty(jParser.getText());
-                                } else
-                                    token = jParser.nextToken();
-                            }
-
-                            return woeid;
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            throw new YahooWOEIDServiceException(e);
-        } finally {
-            if (jParser != null)
-                try {
-                    jParser.close();
-                } catch (IOException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-
-        }
-        return woeid;
-    }
 }

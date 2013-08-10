@@ -34,12 +34,12 @@ public class YahooWeatherStrategy implements WeatherStrategy {
 
         try{
             Woeid woeid = yahooWOEIDService.getWOEID(loc);
-            Optional<WindParameters> wind = yahooWindService.getWind(woeid.getWoeid());
+            WindParameters wind = yahooWindService.getWind(woeid.getWoeid());
 
-            if(wind.isPresent())
-                return wind.get();
-            else
-                throw new WeatherException("Could not retrive windParameters.", this.getClass().getName());
+            if(wind == null)
+               throw new WeatherException("Could not retrive windParameters.", this.getClass().getName());
+
+            return wind;
         }
         catch (WeatherException tr) {
             throw tr;

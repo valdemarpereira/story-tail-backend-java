@@ -18,8 +18,8 @@ public final class Location {
     }
 
     public Location(double lat, double lon) {
-        this.lat = Utils.roundLocationWith2DecimalPlaces(lat);
-        this.lon = Utils.roundLocationWith2DecimalPlaces(lon);
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public double getLat() {
@@ -30,11 +30,11 @@ public final class Location {
     }
 
     public void setLat(double lat) {
-        this.lat = Utils.roundLocationWith2DecimalPlaces(lat);
+        this.lat = lat;
     }
 
     public void setLon(double lon) {
-        this.lon = Utils.roundLocationWith2DecimalPlaces(lon);
+        this.lon = lon;
     }
 
     @Override

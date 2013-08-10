@@ -3,6 +3,8 @@ package com.valdemar.storytail.controller;
 import com.valdemar.storytail.model.*;
 import com.valdemar.storytail.service.TaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -51,7 +53,7 @@ public class TaleController {
     public Response getTale(@QueryParam("taleId") String taleId) {
 
         if ("".equals(taleId)){
-            return Response.serverError().entity(new ServerResponse<Tale>("lat or lon parameters cannot be empty")).build();
+            return Response.serverError().entity(new ServerResponse<Tale>("invalid taleId")).build();
         }
 
         try {
@@ -73,7 +75,10 @@ public class TaleController {
         }
 
         try {
-            Tale newTale = taleService.createNewTale(tale);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String name = auth.getName(); //get logged in username
+
+            Tale newTale = taleService.createNewTale(tale, name);
             return Response.ok(new ServerResponse<Tale>(newTale)).build();
         } catch (Throwable e) {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(new ServerResponse<Tale>(e.getMessage())).build();

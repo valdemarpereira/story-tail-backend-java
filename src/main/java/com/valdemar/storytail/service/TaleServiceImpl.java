@@ -33,7 +33,7 @@ public class TaleServiceImpl implements TaleService {
 
 
     @Override
-    public Tale createNewTale(NewTale tale) throws NewTaleCreationException {
+    public Tale createNewTale(NewTale tale, String userId) throws NewTaleCreationException {
 
         Tail tail = new Tail();
         tail.setTail(tale.getTail());
@@ -41,7 +41,10 @@ public class TaleServiceImpl implements TaleService {
         tail.setCountry(tale.getCurrentCountry());
         tail.setCreateDate(new Date());
         tail.setLocation(tale.getCurrentLocation());
-        tail.setCreatedBy(tale.getCreatedBy());
+
+
+
+        tail.setCreatedBy(userId);
 
         String tailId = tailDao.insertTail(tail);
 
@@ -53,6 +56,7 @@ public class TaleServiceImpl implements TaleService {
         tale.setLockedForEdit(false);
         tale.setInteractions(0);
         tale.insertTailId(tailId);
+        tale.setCreatedBy(userId);
 
         taleDao.createTale(tale);
 

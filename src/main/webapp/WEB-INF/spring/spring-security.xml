@@ -9,9 +9,9 @@
 
 
     <http realm="Protected API" auto-config="false" create-session="stateless" use-expressions="true"
-              entry-point-ref="CustomAuthenticationEntryPoint">
+              entry-point-ref="CustomAuthenticationEntryPoint"  >
 
-        <custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="authenticationTokenProcessingFilter"  position="FORM_LOGIN_FILTER" />
         <intercept-url pattern="/ping" access="permitAll"/>
         <intercept-url pattern="/auth" access="permitAll"/>
 
@@ -20,7 +20,7 @@
 
 
     <beans:bean id="CustomAuthenticationEntryPoint"
-          class="com.valdemar.storytail.auth.CustomAuthenticationEntryPoint"/>
+          class="com.valdemar.storytail.auth.CustomAuthenticationEntryPoint" />
 
     <beans:bean class="com.valdemar.storytail.auth.AuthenticationTokenProcessingFilter"
           id="authenticationTokenProcessingFilter">
@@ -30,7 +30,7 @@
 
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider ref='myAuthenticationProvider' />
+        <authentication-provider ref='myAuthenticationProvider'  />
     </authentication-manager>
 
 

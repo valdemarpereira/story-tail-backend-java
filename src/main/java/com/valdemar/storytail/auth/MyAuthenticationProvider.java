@@ -33,8 +33,11 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String userId = authentication.getName();
         String token = authentication.getCredentials().toString();
+//
 
-        if(userId == null)
+        //Just some example...
+
+        if(userId == null || "".equals(userId))
             throw new CredentialsExpiredException("xpto");
 
 
@@ -52,14 +55,6 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
         return auth;
 
 
-//        if (name.equals("admin") && password.equals("system")) {
-//            List<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();
-//            grantedAuths.add(new SimpleGrantedAuthority("ROLE_USER"));
-//            Authentication auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuths);
-//            return auth;
-//        } else {
-//            return null;
-//        }
     }
 
     @Override
